@@ -24,14 +24,10 @@ public class AsynConfiguration extends AsyncConfigurerSupport {
     }
     @Override
     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
-        return new AsyncUncaughtExceptionHandler() {
-
-            @Override
-            public void handleUncaughtException(Throwable ex, Method method, Object... params) {
-                log.info("Exception: " + ex.getMessage());
-                log.info("Method Name: " + method.getName());
-                ex.printStackTrace();
-            }
+        return (ex, method, params) -> {
+            log.info("Exception: " + ex.getMessage());
+            log.info("Method Name: " + method.getName());
+            ex.printStackTrace();
         };
     }
 }
