@@ -1,0 +1,12 @@
+# Postgres SQL database properties
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/Student
+    username: postgres
+    password: password
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQL9Dialect
+        ddl-auto: update
