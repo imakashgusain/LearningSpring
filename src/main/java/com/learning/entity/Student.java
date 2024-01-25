@@ -5,6 +5,7 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
@@ -20,6 +21,7 @@ public class Student {
 
     @Column
     @NotBlank(message = "The firstName is required.")
+    @NotNull
     private String firstName;
 
     @Column
@@ -27,6 +29,7 @@ public class Student {
 
     @Column
     @NotBlank(message = "The email is required.")
+    @NotNull
     private String email;
 
     @Column
@@ -42,5 +45,6 @@ public class Student {
     @Size(min = 10, max = 10, message = "phone number must be exactly 10 characters long.")
     @NotBlank(message = "The phoneNumber is required.")
     @Column(unique = true)
+    @NotNull
     private String phoneNumber;
 }
