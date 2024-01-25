@@ -1,12 +1,12 @@
 package com.learning.controller;
 
-import com.learning.exception.ResourceNotFoundException;
 import com.learning.service.StudentService;
 import com.learning.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -28,13 +28,13 @@ public class StudentController {
     }
 
     @PostMapping
-    public Student createStudent(@RequestBody Student student) {
+    public Student createStudent(@Valid @RequestBody Student student) {
         return studentService.createStudent(student);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Student> updateStudent(@PathVariable(value = "id") Long studentId,
-                                                 @RequestBody Student studentDetails) {
+                                                 @Valid @RequestBody Student studentDetails) {
         Student updatedStudent = studentService.updateStudent(studentId, studentDetails);
         return ResponseEntity.ok(updatedStudent);
 
