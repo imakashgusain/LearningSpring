@@ -2,6 +2,9 @@ package com.learning.controller;
 
 import com.learning.service.StudentService;
 import com.learning.entity.Student;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -18,22 +21,42 @@ public class StudentController {
     @Autowired
     private StudentService studentService;
 
+    @Operation(summary = "Fetches all Students")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "retrieved all student details"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "500", description = "Server Error")})
     @GetMapping
     public List<Student> getAllStudents() {
         return studentService.getAllStudents();
     }
 
+    @Operation(summary = "Fetches Student detail by student id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "retrieved student details"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "500", description = "Server Error")})
     @GetMapping("/{id}")
     public ResponseEntity<Student> getStudentById(@PathVariable(value = "id") Long studentId) {
         Student student = studentService.getStudentById(studentId);
         return ResponseEntity.ok().body(student);
     }
 
+    @Operation(summary = "Save student detail")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "student detail Saved"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "500", description = "Server Error")})
     @PostMapping
     public Student createStudent(@Valid @RequestBody Student student) {
         return studentService.createStudent(student);
     }
 
+    @Operation(summary = "update student detail")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "student detail updated"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "500", description = "Server Error")})
     @PutMapping("/{id}")
     public ResponseEntity<Student> updateStudent(@PathVariable(value = "id") Long studentId,
                                                  @Valid @RequestBody Student studentDetails) {
@@ -42,6 +65,11 @@ public class StudentController {
 
     }
 
+    @Operation(summary = "delete student detail")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "student detail deleted"),
+            @ApiResponse(responseCode = "400", description = "Bad request"),
+            @ApiResponse(responseCode = "500", description = "Server Error")})
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteStudent(@PathVariable(value = "id") Long studentId) {
         studentService.deleteStudent(studentId);
