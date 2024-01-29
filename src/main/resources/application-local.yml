@@ -1,9 +1,9 @@
 # Postgres SQL database properties
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/student
-    username: postgres
-    password: password
+    url: jdbc:postgresql://${POSTGRESQL_HOSTNAME:localhost}:${POSTGRESQL_PORT:5432}/${POSTGRESQL_DB_NAME:student}
+    username: ${POSTGRESQL_DB_USER:postgres}
+    password: ${POSTGRESQL_DB_PASSWORD:password}
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true
