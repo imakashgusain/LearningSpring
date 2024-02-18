@@ -6,6 +6,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -74,5 +79,20 @@ public class StudentController {
     public ResponseEntity<String> deleteStudent(@PathVariable(value = "id") Long studentId) {
         studentService.deleteStudent(studentId);
         return ResponseEntity.ok("deleted successfully");
+    }
+
+    @GetMapping("/page")
+    public ResponseEntity<Page<Student>> getUsers(@RequestParam(defaultValue = "") String searchCriteria,
+                                                  @RequestParam(defaultValue = "0") int page,
+                                                  @RequestParam(defaultValue = "5") int size) {
+        Pageable pageable;
+        if (searchCriteria.isEmpty()) {
+            pageable = PageRequest.of(page, size);
+        } else {
+            pageable = PageRequest.of(page, size, Sort.by("lastName").ascending());
+        }
+
+        Page<Student> students =  studentService.fetchStudentsInPage(searchCriteria,pageable);
+        return new ResponseEntity<>(students, HttpStatus.OK);
     }
 }
