@@ -8,3 +8,7 @@ Contents -
 4. Devtools- no need to restart springapp again and again while development
 5. JACOCO for test coverage
 6. openapi springdoc - documentation
+
+Docker build commands
+docker build -t <imageName>:<tag> <dockerfilePath>
+docker run <imageName>:<tag>
