@@ -1,6 +1,5 @@
 package com.learning.asynchornouscalls;
 
-import java.lang.reflect.Method;
 import java.util.concurrent.Executor;
 
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +16,7 @@ public class AsynConfiguration extends AsyncConfigurerSupport {
                 ThreadPoolTaskExecutor();
         executor.setCorePoolSize(3);
         executor.setMaxPoolSize(4);
+        executor.setQueueCapacity(10);  // queue will have atmax 10 process
         executor.setThreadNamePrefix("asyn-task-thread-");
         executor.setWaitForTasksToCompleteOnShutdown(true);
         executor.initialize();
