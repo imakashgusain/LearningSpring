@@ -23,8 +23,11 @@ import java.util.List;
 @RequestMapping("/student")
 public class StudentController {
 
-    @Autowired
     private StudentService studentService;
+
+    public StudentController(StudentService studentService){
+        this.studentService = studentService;
+    }
 
     @Operation(summary = "Fetches all Students")
     @ApiResponses(value = {
