@@ -3,7 +3,6 @@ package com.learning.service;
 import com.learning.exception.ResourceNotFoundException;
 import com.learning.repository.StudentRepository;
 import com.learning.entity.Student;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,7 @@ import java.util.Optional;
 @Service
 public class StudentService {
 
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
     public StudentService(StudentRepository studentRepository){
         this.studentRepository =  studentRepository;
